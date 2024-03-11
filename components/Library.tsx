@@ -1,11 +1,21 @@
 'use client'
 
+import useAuthModal from '@/hooks/useAuthModal'
+import useUploadModal from '@/hooks/useUploadModal'
+import { useUser } from '@/hooks/useUser'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { MdPlaylistPlay } from 'react-icons/md'
 
 const Library = () => {
+  const authModal = useAuthModal()
+  const uploadModal = useUploadModal()
+  const { user } = useUser()
   const onClick = () => {
-    //handle upload later
+    if (!user) {
+      return authModal.onOpen()
+    }
+    //TODO: Check for subscription
+    return uploadModal.onOpen()
   }
   return (
     <div className='flex flex-col'>
